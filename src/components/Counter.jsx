@@ -1,10 +1,25 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { decrement, increment, reset } from '../redux/slices/counterSlice'
+import { decrement, increment, incrementByAmount, reset } from '../redux/slices/counterSlice'
 
 function Counter() {
 const {count}=useSelector(state=>state.counterReducer)
 const dispatch=useDispatch()
+const inputRef=useRef()
+
+const handleIncrement=()=>{
+  const amount=inputRef.current.value
+  if (amount){
+    dispatch(incrementByAmount(+amount))
+    inputRef.current.value=""
+  }else{
+    alert("enter a valid input")
+  }
+}
+
+
+
+
   return (
     <div style={{height:"100vh",backgroundColor:"black"}} className='d-flex justify-content-center align-items-center'>
       <div className='border rounded-3 p-5'>
@@ -15,8 +30,8 @@ const dispatch=useDispatch()
             <button onClick={()=>dispatch(increment())} className='btn btn-success'>Increment</button>
         </div>
         <div className='d-flex justify-content-center '>
-            <input className='  form-control' type="text" placeholder='Incremented Counter Amount'/>
-            <button className='btn btn-primary mx-3'>Increment By Amount</button>
+            <input ref={inputRef} className='  form-control' type="text" placeholder='Incremented Counter Amount'/>
+            <button onClick={handleIncrement} className='btn btn-primary mx-3'>Increment By Amount</button>
         </div>
       </div>
     </div>

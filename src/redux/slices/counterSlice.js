@@ -21,5 +21,5 @@ const counterSlice=createSlice({
         }
     }
 })
-export const {increment,decrement,reset,actionByComponent}=counterSlice.actions
+export const {increment,decrement,reset,incrementByAmount}=counterSlice.actions
 export default counterSlice.reducer
